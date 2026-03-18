@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react';
+import type { BackgroundEffect } from '../../../store/useDeckStore';
 import { DustParticles } from './DustParticles';
 import { FluidMesh } from './FluidMesh';
 import { Aurora } from './Aurora';
@@ -11,10 +12,10 @@ import { MorphingSphere } from './MorphingSphere';
  *
  * To add a new effect:
  *  1. Create a component in this folder (use useColorPalette for palette transitions)
- *  2. Import and register it here
- *  3. Add its key to BackgroundEffect in useDeckStore.ts
+ *  2. Import and register it here — TypeScript will error if the key isn't in BackgroundEffect
+ *  3. Add its key to BackgroundEffect and BACKGROUND_EFFECTS in useDeckStore.ts
  */
-export const effects: Record<string, ComponentType> = {
+export const effects: Record<BackgroundEffect, ComponentType> = {
   particles: DustParticles,
   fluid: FluidMesh,
   aurora: Aurora,
