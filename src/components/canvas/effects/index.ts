@@ -2,6 +2,7 @@ import type { ComponentType } from 'react';
 import { DustParticles } from './DustParticles';
 import { FluidMesh } from './FluidMesh';
 import { Aurora } from './Aurora';
+import { Nova } from './Nova';
 import { WaveGrid } from './WaveGrid';
 import { MorphingSphere } from './MorphingSphere';
 
@@ -17,6 +18,7 @@ export const effects: Record<string, ComponentType> = {
   particles: DustParticles,
   fluid: FluidMesh,
   aurora: Aurora,
+  nova: Nova,
   waveGrid: WaveGrid,
   morphingSphere: MorphingSphere,
 };

@@ -52,7 +52,7 @@ function stripUniformDeclarations(shaderSource, uniformNames) {
   let nextSource = shaderSource;
 
   for (const uniformName of uniformNames) {
-    const uniformPattern = new RegExp(`^\\s*uniform\\s+\\w+\\s+${escapeRegExp(uniformName)}\\s*;\\s*$`, 'gm');
+    const uniformPattern = new RegExp(`^\\s*uniform\\s+\\w+\\s+${escapeRegExp(uniformName)}\\s*;.*$`, 'gm');
     nextSource = nextSource.replace(uniformPattern, '');
   }
 

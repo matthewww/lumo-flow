@@ -1,13 +1,14 @@
 import { create } from 'zustand';
 
-export type BackgroundEffect = 'fluid' | 'particles' | 'aurora' | 'waveGrid' | 'morphingSphere';
+export type BackgroundEffect = 'fluid' | 'particles' | 'aurora' | 'nova' | 'waveGrid' | 'morphingSphere';
 
 export const BACKGROUND_EFFECTS: BackgroundEffect[] = [
-  'particles', 
-  'fluid', 
-  'aurora', 
-  'waveGrid', 
-  'morphingSphere'
+  'particles',
+  'fluid',
+  'aurora',
+  'nova',
+  'waveGrid',
+  'morphingSphere',
 ];
 
 interface DeckState {
