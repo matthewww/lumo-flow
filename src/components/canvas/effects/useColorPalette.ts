@@ -9,7 +9,10 @@ import { colorPalettes } from './colorPalettes';
  * Lerps material uniforms (u_color1, u_color2, u_color3) toward the
  * target palette each frame. Pass the shaderMaterial ref from your effect.
  */
-export function useColorPalette(materialRef: React.RefObject<THREE.ShaderMaterial | null>) {
+export function useColorPalette(
+  materialRef: React.RefObject<THREE.ShaderMaterial | null>,
+  enabled = true,
+) {
   const currentSlide = useDeckStore((state) => state.currentSlide);
 
   const currentColors = useRef({
@@ -26,6 +29,10 @@ export function useColorPalette(materialRef: React.RefObject<THREE.ShaderMateria
 
   // Initialize to first palette
   useEffect(() => {
+    if (!enabled || !materialRef.current) {
+      return;
+    }
+
     if (materialRef.current) {
       const palette = colorPalettes[0];
       currentColors.current.color1.copy(palette.color1);
@@ -36,20 +43,28 @@ export function useColorPalette(materialRef: React.RefObject<THREE.ShaderMateria
       materialRef.current.uniforms.u_color2.value.copy(palette.color2);
       materialRef.current.uniforms.u_color3.value.copy(palette.color3);
     }
-  }, [materialRef]);
+  }, [enabled, materialRef]);
 
   // Update target when slide changes
   useEffect(() => {
+    if (!enabled) {
+      return;
+    }
+
     const paletteIndex = currentSlide % colorPalettes.length;
     const palette = colorPalettes[paletteIndex];
 
     targetColors.current.color1.copy(palette.color1);
     targetColors.current.color2.copy(palette.color2);
     targetColors.current.color3.copy(palette.color3);
-  }, [currentSlide]);
+  }, [currentSlide, enabled]);
 
   // Lerp toward target each frame
   useFrame((_state, delta) => {
+    if (!enabled || !materialRef.current) {
+      return;
+    }
+
     if (materialRef.current) {
       const lerpFactor = Math.min(delta * 0.8, 1.0);
       currentColors.current.color1.lerp(targetColors.current.color1, lerpFactor);
